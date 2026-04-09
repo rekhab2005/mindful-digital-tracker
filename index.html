@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Campus Drive Attendees</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 60%;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #333;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #e0e0e0;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Campus Drive Attendees</h2>
+
+    <table id="studentTable">
+        <tr>
+            <th>Name</th>
+            <th>Company</th>
+        </tr>
+        <tr>
+            <td>John</td>
+            <td>Google</td>
+        </tr>
+        <tr>
+            <td>Rekha</td>
+            <td>Infosys</td>
+        </tr>
+        <tr>
+            <td>Arun</td>
+            <td>TCS</td>
+        </tr>
+    </table>
+
+    <h3>Add New Student</h3>
+    <input type="text" id="name" placeholder="Student Name">
+    <input type="text" id="company" placeholder="Company">
+    <button onclick="addStudent()">Add</button>
+
+    <br><br>
+    <button onclick="loadData()">Load More (AJAX)</button>
+
+    <script>
+        function addStudent() {
+            let name = document.getElementById("name").value;
+            let company = document.getElementById("company").value;
+
+            // ✅ FIXED CONDITION
+            if (name === "" || company === "") {
+                alert("Please fill all fields");
+                return;
+            }
+
+            let table = document.getElementById("studentTable");
+            let row = table.insertRow();
+
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+
+            cell1.innerHTML = name;
+            cell2.innerHTML = company;
+
+            // Clear inputs
+            document.getElementById("name").value = "";
+            document.getElementById("company").value = "";
+        }
+
+        // ✅ FIXED MISSING FUNCTION (Line 84 issue)
+        function loadData() {
+            let data = [
+                { name: "Rahul", company: "Wipro" },
+                { name: "Sneha", company: "HCL" },
+                { name: "Kumar", company: "Accenture" }
+            ];
+
+            let table = document.getElementById("studentTable");
+
+            data.forEach(student => {
+                let row = table.insertRow();
+                row.insertCell(0).innerHTML = student.name;
+                row.insertCell(1).innerHTML = student.company;
+            });
+        }
+    </script>
+
+</body>
+
+</html>
